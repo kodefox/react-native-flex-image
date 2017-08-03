@@ -1,0 +1,4 @@
+flow-typed/npm
+node_modules/
+.expo/
+npm-debug.*

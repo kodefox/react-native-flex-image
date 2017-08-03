@@ -1,0 +1,7 @@
+/lib
+/node_modules
+/flow-typed/npm
+/starter/node/flow-typed
+/starter/react-native/flow-typed
+/starter/react-web/flow-typed
+/src/registerServiceWorker.js

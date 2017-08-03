@@ -1,0 +1,28 @@
+{
+  "name": "react-native-flex-image",
+  "version": "1.0.8",
+  "files": ["flow-typed", "src/FlexImage.js"],
+  "main": "src/FlexImage.js",
+  "scripts": {
+    "test": "node node_modules/jest/bin/jest.js"
+  },
+  "dependencies": {
+    "class-autobind": "^0.1.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "eslint": "^4.3.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-react": "^7.1.0",
+    "flow-bin": "0.47.0",
+    "jest-expo": "~19.0.0",
+    "react-native-scripts": "1.1.0",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  }
+}
