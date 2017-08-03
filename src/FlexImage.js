@@ -145,7 +145,6 @@ export default class FlexImage extends Component {
   }
 }
 
-// TODO: Move to another file and write a test.
 // A cancellable version of Image.getSize
 export function getImageSize(
   source: {uri: string},
