@@ -11,11 +11,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+type Cancellable = {
+  cancel: () => void;
+};
+
 type Props = {
   source: number | {uri: string; width?: number; height?: number};
-  initialRatio?: number;
-  style?: StyleSheetTypes;
-  loadingComponent?: ReactElement<*>;
+  style?: StyleType;
+  loadingComponent?: ReactNode;
   onPress?: () => void;
 };
 
@@ -28,13 +31,13 @@ type State = {
 export default class FlexImage extends Component {
   props: Props;
   state: State;
-  _pendingGetSize: ?{cancel: () => void};
+  _pendingGetSize: ?Cancellable;
 
-  constructor() {
-    super(...arguments);
+  constructor(props: Props, ...args: Array<mixed>) {
+    super(props, ...args);
     autobind(this);
 
-    let {source} = this.props;
+    let {source} = props;
     let ratio;
     let error;
     let isLoading = true;
@@ -100,7 +103,8 @@ export default class FlexImage extends Component {
     if (typeof source === 'number') {
       imageSource = source;
     } else {
-      let {uri, width, height, ...other} = source; // eslint-disable-line
+      // eslint-disable-next-line no-unused-vars
+      let {uri, width, height, ...other} = source;
       imageSource = {uri, ...other};
     }
 
@@ -141,23 +145,24 @@ export default class FlexImage extends Component {
   }
 }
 
+// TODO: Move to another file and write a test.
 // A cancellable version of Image.getSize
 export function getImageSize(
   source: {uri: string},
-  onSuccess: Function,
-  onFail: Function
+  onSuccess: (width: number, height: number) => void,
+  onFail: (error: Error) => void
 ) {
   let isCancelled = false;
   Image.getSize(
     source.uri,
-    (...args) => {
+    (width: number, height: number) => {
       if (!isCancelled) {
-        onSuccess(...args);
+        onSuccess(width, height);
       }
     },
-    (...args) => {
+    (error: Error) => {
       if (!isCancelled) {
-        onFail(...args);
+        onFail(error);
       }
     }
   );

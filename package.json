@@ -1,7 +1,7 @@
 {
   "name": "react-native-flex-image",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "files": ["flow-typed", "src/FlexImage.js"],
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
