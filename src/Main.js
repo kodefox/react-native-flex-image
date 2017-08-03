@@ -41,7 +41,7 @@ export default function Main(props: Props) {
 }
 
 Main.navigationOptions = {
-  title: 'Example Menu',
+  title: 'Demo Menu',
 };
 
 const styles = StyleSheet.create({
