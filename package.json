@@ -1,7 +1,10 @@
 {
   "name": "react-native-flex-image",
-  "version": "1.0.8",
-  "files": ["flow-typed", "src/FlexImage.js"],
+  "version": "1.1.0",
+  "files": [
+    "flow-typed",
+    "src/FlexImage.js"
+  ],
   "main": "src/FlexImage.js",
   "scripts": {
     "test": "node node_modules/jest/bin/jest.js"
