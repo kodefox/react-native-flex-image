@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import autobind from 'class-autobind';
-import resolveAssetSource from 'resolveAssetSource';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import {
   View,
   Text,
