@@ -22,6 +22,10 @@ Use `<FlexImage>` to display an image sized to the full-width of its parent whil
 
 Also supports loading indicator for remote images.
 
+## Demo
+
+Expo demo: https://exp.host/@kfox/react-native-flex-image
+
 #### Simple Example
 
 ```js
