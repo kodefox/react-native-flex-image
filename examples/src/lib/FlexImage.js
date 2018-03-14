@@ -78,7 +78,7 @@ export default class FlexImage extends Component<Props, State> {
 
     if (isLoading) {
       let loadingIndicator = loadingComponent || (
-        <ActivityIndicator animating={true} size="large" />
+        <ActivityIndicator size="large" />
       );
       return (
         <View style={[{justifyContent: 'center', alignItems: 'center'}, style]}>
