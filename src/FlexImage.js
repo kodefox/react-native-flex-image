@@ -12,25 +12,23 @@ import {
 } from 'react-native';
 
 type Cancellable = {
-  cancel: () => void;
+  cancel: () => void,
 };
 
 type Props = {
-  source: number | {uri: string; width?: number; height?: number};
-  style?: StyleType;
-  loadingComponent?: ReactNode;
-  onPress?: () => void;
+  source: number | {uri: string, width?: number, height?: number},
+  style?: StyleType,
+  loadingComponent?: ReactNode,
+  onPress?: () => void,
 };
 
 type State = {
-  isLoading: boolean;
-  ratio: ?number;
-  error: ?string;
+  isLoading: boolean,
+  ratio: ?number,
+  error: ?string,
 };
 
-export default class FlexImage extends Component {
-  props: Props;
-  state: State;
+export default class FlexImage extends Component<Props, State> {
   _pendingGetSize: ?Cancellable;
 
   constructor(props: Props, ...args: Array<mixed>) {
@@ -77,11 +75,11 @@ export default class FlexImage extends Component {
   render() {
     let {source, style, onPress, loadingComponent, ...otherProps} = this.props;
     let {isLoading, ratio, error} = this.state;
-    let component;
 
     if (isLoading) {
-      let loadingIndicator =
-        loadingComponent || <ActivityIndicator animating={true} size="large" />;
+      let loadingIndicator = loadingComponent || (
+        <ActivityIndicator animating={true} size="large" />
+      );
       return (
         <View style={[{justifyContent: 'center', alignItems: 'center'}, style]}>
           {loadingIndicator}
@@ -92,9 +90,7 @@ export default class FlexImage extends Component {
     if (error) {
       return (
         <View style={[{justifyContent: 'center', alignItems: 'center'}, style]}>
-          <Text>
-            {error}
-          </Text>
+          <Text>{error}</Text>
         </View>
       );
     }
@@ -108,25 +104,19 @@ export default class FlexImage extends Component {
       imageSource = {uri, ...other};
     }
 
-    component = (
-      <View style={[{aspectRatio: ratio}, style]}>
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        disabled={!onPress}
+        style={[{aspectRatio: ratio}, style]}
+      >
         <Image
           {...otherProps}
           source={imageSource}
           style={{width: '100%', height: '100%'}}
         />
-      </View>
+      </TouchableOpacity>
     );
-
-    if (onPress) {
-      return (
-        <TouchableOpacity onPress={onPress}>
-          {component}
-        </TouchableOpacity>
-      );
-    } else {
-      return component;
-    }
   }
 
   _onLoadSuccess(width: number, height: number) {
