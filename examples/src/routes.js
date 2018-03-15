@@ -7,6 +7,7 @@ import SimpleImageList from './SimpleImageList';
 import LocalImage from './LocalImage';
 import CustomLoadingIndicator from './CustomLoadingIndicator';
 import WithOnPressEvent from './WithOnPressEvent';
+import ProgressiveImage from './ProgressiveImage';
 
 export default StackNavigator(
   {
@@ -15,6 +16,7 @@ export default StackNavigator(
     LocalImage: {screen: LocalImage},
     WithOnPressEvent: {screen: WithOnPressEvent},
     CustomLoadingIndicator: {screen: CustomLoadingIndicator},
+    ProgressiveImage: {screen: ProgressiveImage},
   },
   {
     initialRouteName: 'Main',

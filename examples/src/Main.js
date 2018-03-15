@@ -20,21 +20,27 @@ export default function Main(props: Props) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('LocalImage')}
-        style={[styles.button, {backgroundColor: '#009688'}]}
+        style={[styles.button, {backgroundColor: '#8180ea'}]}
       >
         <Text style={styles.text}>Local Image</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('WithOnPressEvent')}
-        style={[styles.button, {backgroundColor: '#FF5722'}]}
+        style={[styles.button, {backgroundColor: '#ba62cc'}]}
       >
         <Text style={styles.text}>With onPress Event</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('CustomLoadingIndicator')}
-        style={[styles.button, {backgroundColor: '#E91E63'}]}
+        style={[styles.button, {backgroundColor: '#de3e9d'}]}
       >
         <Text style={styles.text}>Custom Loading Indicator</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ProgressiveImage')}
+        style={[styles.button, {backgroundColor: '#E91E63'}]}
+      >
+        <Text style={styles.text}>Progressive Image</Text>
       </TouchableOpacity>
     </View>
   );
