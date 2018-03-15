@@ -109,6 +109,8 @@ function App() {
 |**`onPress`**|optional|onPress event when user clicking the image|`null`|
 |**`style`**|optional|custom style for the image container |`null`|
 |**`loadingComponent`**|optional|custom loading indicator when render the image |`<ActivityIndicator animating={true} size="large" />`|
+|**`thumbnail`**|optional|source of the thumbnail|*None*|
+|**`loadingMethod`**|optional|enum for select loading method, using `indicator` or `progressive`|`indicator`|
 
 
 ## License
