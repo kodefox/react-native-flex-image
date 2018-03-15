@@ -13,8 +13,7 @@ export default function ProgressiveImage() {
         to load.
       </Text>
       <Text style={styles.text}>
-        This loading component use ActivityIndicator with large size and red
-        color
+        This will render thumbnail when the main image still loading.
       </Text>
       <FlexImage
         source={{

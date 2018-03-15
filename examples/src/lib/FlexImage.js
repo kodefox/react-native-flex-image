@@ -90,7 +90,7 @@ export default class FlexImage extends Component<Props, State> {
     } = this.props;
     let {isLoading, ratio, error, thumbnailOpacity} = this.state;
 
-    if (isLoading) {
+    if (isLoading && loadingMethod !== 'progressive') {
       let loadingIndicator = loadingComponent || (
         <ActivityIndicator size="large" />
       );
