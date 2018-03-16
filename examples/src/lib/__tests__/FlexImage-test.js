@@ -64,6 +64,7 @@ it('should render thumbnail when loadingMethod is progressive', () => {
         interpolate: () => jest.fn(),
         __getValue: () => jest.fn(),
       },
+      zIndex: 1,
     },
     onLoad: anonymous,
     testID: 'progressiveThumbnail',

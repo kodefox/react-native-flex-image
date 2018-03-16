@@ -124,12 +124,6 @@ export default class FlexImage extends Component<Props, State> {
         disabled={!onPress}
         style={[{aspectRatio: ratio}, style]}
       >
-        <Animated.Image
-          {...otherProps}
-          source={imageSource}
-          style={{width: '100%', height: '100%', position: 'absolute'}}
-          onLoad={this._onLoad}
-        />
         {thumbnail &&
           loadingMethod === 'progressive' && (
             <Animated.Image
@@ -139,11 +133,18 @@ export default class FlexImage extends Component<Props, State> {
                 width: '100%',
                 height: '100%',
                 opacity: thumbnailOpacity,
+                zIndex: 1,
               }}
               onLoad={this._onThumbnailLoad}
               testID="progressiveThumbnail"
             />
           )}
+        <Animated.Image
+          {...otherProps}
+          source={imageSource}
+          style={{width: '100%', height: '100%', position: 'absolute'}}
+          onLoad={this._onLoad}
+        />
       </TouchableOpacity>
     );
   }
