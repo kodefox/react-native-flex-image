@@ -100,6 +100,25 @@ function App() {
 }
 ```
 
+#### Progressive Loading Component
+```js
+import FlexImage from 'react-native-flex-image';
+
+function App() {
+  return (
+    <View style={{flex: 1}}>
+      <FlexImage
+        source={{
+          uri: 'image source uri',
+        }}
+        thumbnail={{uri: 'thumbnail image source uri'}}
+        loadingMethod="progressive"
+      />
+    </View>
+  );
+}
+```
+
 ## Properties
 *Note: Other properties will be passed down to underlying image component.*
 
