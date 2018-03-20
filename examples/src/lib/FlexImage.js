@@ -9,6 +9,7 @@ import {
   Image,
   ActivityIndicator,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 
 type Cancellable = {
@@ -20,12 +21,15 @@ type Props = {
   style?: StyleType,
   loadingComponent?: ReactNode,
   onPress?: () => void,
+  thumbnail?: number | {uri: string, width?: number, height?: number},
+  loadingMethod?: 'spinner' | 'progressive',
 };
 
 type State = {
   isLoading: boolean,
   ratio: ?number,
   error: ?string,
+  thumbnailOpacity: Animated.Value,
 };
 
 export default class FlexImage extends Component<Props, State> {
@@ -35,13 +39,14 @@ export default class FlexImage extends Component<Props, State> {
     super(props, ...args);
     autobind(this);
 
-    let {source} = props;
+    let {source, thumbnail, loadingMethod} = props;
     let ratio;
     let error;
     let isLoading = true;
 
-    if (typeof source === 'number') {
-      let imageSource = resolveAssetSource(source);
+    let src = thumbnail && loadingMethod === 'progressive' ? thumbnail : source;
+    if (typeof src === 'number') {
+      let imageSource = resolveAssetSource(src);
       if (imageSource) {
         let {width, height} = imageSource;
         if (width && height) {
@@ -53,7 +58,7 @@ export default class FlexImage extends Component<Props, State> {
       isLoading = false;
     } else {
       this._pendingGetSize = getImageSize(
-        source,
+        src,
         this._onLoadSuccess,
         this._onLoadFail
       );
@@ -63,6 +68,7 @@ export default class FlexImage extends Component<Props, State> {
       ratio,
       isLoading,
       error,
+      thumbnailOpacity: new Animated.Value(0),
     };
   }
 
@@ -73,10 +79,18 @@ export default class FlexImage extends Component<Props, State> {
   }
 
   render() {
-    let {source, style, onPress, loadingComponent, ...otherProps} = this.props;
-    let {isLoading, ratio, error} = this.state;
+    let {
+      source,
+      style,
+      onPress,
+      loadingComponent,
+      thumbnail,
+      loadingMethod,
+      ...otherProps
+    } = this.props;
+    let {isLoading, ratio, error, thumbnailOpacity} = this.state;
 
-    if (isLoading) {
+    if (isLoading && loadingMethod !== 'progressive') {
       let loadingIndicator = loadingComponent || (
         <ActivityIndicator size="large" />
       );
@@ -110,14 +124,44 @@ export default class FlexImage extends Component<Props, State> {
         disabled={!onPress}
         style={[{aspectRatio: ratio}, style]}
       >
-        <Image
+        {thumbnail &&
+          loadingMethod === 'progressive' && (
+            <Animated.Image
+              {...otherProps}
+              source={thumbnail}
+              style={{
+                width: '100%',
+                height: '100%',
+                opacity: thumbnailOpacity,
+                zIndex: 1,
+              }}
+              onLoad={this._onThumbnailLoad}
+              testID="progressiveThumbnail"
+            />
+          )}
+        <Animated.Image
           {...otherProps}
           source={imageSource}
-          style={{width: '100%', height: '100%'}}
+          style={{width: '100%', height: '100%', position: 'absolute'}}
+          onLoad={this._onLoad}
         />
       </TouchableOpacity>
     );
   }
+
+  _onThumbnailLoad = () => {
+    Animated.timing(this.state.thumbnailOpacity, {
+      toValue: 1,
+      duration: 250,
+    }).start();
+  };
+
+  _onLoad = () => {
+    Animated.timing(this.state.thumbnailOpacity, {
+      toValue: 0,
+      duration: 250,
+    }).start();
+  };
 
   _onLoadSuccess(width: number, height: number) {
     let ratio = width / height;
