@@ -22,7 +22,7 @@ type Props = {
   loadingComponent?: ReactNode,
   onPress?: () => void,
   thumbnail?: number | { uri: string, width?: number, height?: number },
-  loadingMethod?: 'indicator' | 'progressive',
+  loadingMethod?: 'spinner' | 'progressive',
 };
 
 type State = {
