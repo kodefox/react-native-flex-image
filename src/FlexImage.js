@@ -17,12 +17,13 @@ type Cancellable = {
 };
 
 type Props = {
-  source: number | { uri: string, width?: number, height?: number },
+  source: number | {uri: string, width?: number, height?: number},
   style?: StyleType,
   loadingComponent?: ReactNode,
   onPress?: () => void,
-  thumbnail?: number | { uri: string, width?: number, height?: number },
+  thumbnail?: number | {uri: string, width?: number, height?: number},
   loadingMethod?: 'spinner' | 'progressive',
+  errorComponent?: ReactNode,
 };
 
 type State = {
@@ -60,7 +61,7 @@ export default class FlexImage extends Component<Props, State> {
       this._pendingGetSize = getImageSize(
         src,
         this._onLoadSuccess,
-        this._onLoadFail
+        this._onLoadFail,
       );
     }
 
@@ -86,6 +87,7 @@ export default class FlexImage extends Component<Props, State> {
       loadingComponent,
       thumbnail,
       loadingMethod,
+      errorComponent,
       ...otherProps
     } = this.props;
     let {isLoading, ratio, error, thumbnailOpacity} = this.state;
@@ -104,7 +106,7 @@ export default class FlexImage extends Component<Props, State> {
     if (error) {
       return (
         <View style={[{justifyContent: 'center', alignItems: 'center'}, style]}>
-          <Text>{error}</Text>
+          {errorComponent ? errorComponent : <Text>{error}</Text>}
         </View>
       );
     }
@@ -124,21 +126,20 @@ export default class FlexImage extends Component<Props, State> {
         disabled={!onPress}
         style={[{aspectRatio: ratio}, style]}
       >
-        {thumbnail &&
-          loadingMethod === 'progressive' && (
-            <Animated.Image
-              {...otherProps}
-              source={thumbnail}
-              style={{
-                width: '100%',
-                height: '100%',
-                opacity: thumbnailOpacity,
-                zIndex: 1,
-              }}
-              onLoad={this._onThumbnailLoad}
-              testID="progressiveThumbnail"
-            />
-          )}
+        {thumbnail && loadingMethod === 'progressive' && (
+          <Animated.Image
+            {...otherProps}
+            source={thumbnail}
+            style={{
+              width: '100%',
+              height: '100%',
+              opacity: thumbnailOpacity,
+              zIndex: 1,
+            }}
+            onLoad={this._onThumbnailLoad}
+            testID="progressiveThumbnail"
+          />
+        )}
         <Animated.Image
           {...otherProps}
           source={imageSource}
@@ -181,9 +182,9 @@ export default class FlexImage extends Component<Props, State> {
 
 // A cancellable version of Image.getSize
 export function getImageSize(
-  source: { uri: string },
+  source: {uri: string},
   onSuccess: (width: number, height: number) => void,
-  onFail: (error: Error) => void
+  onFail: (error: Error) => void,
 ) {
   let isCancelled = false;
   Image.getSize(
@@ -197,7 +198,7 @@ export function getImageSize(
       if (!isCancelled) {
         onFail(error);
       }
-    }
+    },
   );
   return {
     cancel: () => {

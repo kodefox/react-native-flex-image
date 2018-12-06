@@ -10,11 +10,11 @@ A flexible-width <Image> component for React Native using `aspectRatio`
 $ yarn add react-native-flex-image
 ```
 
- -- or --
+-- or --
 
- ```
- $ npm install react-native-flex-image --save
- ```
+```
+$ npm install react-native-flex-image --save
+```
 
 ## Usage
 
@@ -45,6 +45,7 @@ function App() {
 ```
 
 #### Local Image
+
 ```js
 import FlexImage from 'react-native-flex-image';
 
@@ -58,6 +59,7 @@ function App() {
 ```
 
 #### With onPress Event
+
 ```js
 import FlexImage from 'react-native-flex-image';
 
@@ -73,7 +75,7 @@ function App() {
           this.setState({
             imageClickCount: imageClickCount + 1,
           });
-         }}
+        }}
       />
     </View>
   );
@@ -81,6 +83,7 @@ function App() {
 ```
 
 #### Custom Loading Component
+
 ```js
 import FlexImage from 'react-native-flex-image';
 
@@ -91,9 +94,7 @@ function App() {
         source={{
           uri: 'image source uri',
         }}
-        loadingComponent={
-          <ActivityIndicator size="large" color="red" />
-        }
+        loadingComponent={<ActivityIndicator size="large" color="red" />}
       />
     </View>
   );
@@ -101,6 +102,7 @@ function App() {
 ```
 
 #### Progressive Loading Component
+
 ```js
 import FlexImage from 'react-native-flex-image';
 
@@ -120,17 +122,18 @@ function App() {
 ```
 
 ## Properties
-*Note: Other properties will be passed down to underlying image component.*
 
-| Prop | Type | Description | Default |
-|---|---|---|---|
-|**`source`**|required|source of the image|*None*|
-|**`onPress`**|optional|onPress event when user clicking the image|`null`|
-|**`style`**|optional|custom style for the image container |`null`|
-|**`loadingComponent`**|optional|custom loading indicator when render the image |`<ActivityIndicator animating={true} size="large" />`|
-|**`thumbnail`**|optional|source of the thumbnail|*None*|
-|**`loadingMethod`**|optional|enum for select loading method, using `indicator` or `progressive`|`indicator`|
+_Note: Other properties will be passed down to underlying image component._
 
+| Prop                   | Type     | Description                                                        | Default                                               |
+| ---------------------- | -------- | ------------------------------------------------------------------ | ----------------------------------------------------- |
+| **`source`**           | required | source of the image                                                | _None_                                                |
+| **`onPress`**          | optional | onPress event when user clicking the image                         | `null`                                                |
+| **`style`**            | optional | custom style for the image container                               | `null`                                                |
+| **`loadingComponent`** | optional | custom loading indicator when render the image                     | `<ActivityIndicator animating={true} size="large" />` |
+| **`thumbnail`**        | optional | source of the thumbnail                                            | _None_                                                |
+| **`loadingMethod`**    | optional | enum for select loading method, using `indicator` or `progressive` | `indicator`                                           |
+| **`errorComponent`**   | optional | custom error component when fail displaying the image              | `null`                                                |
 
 ## License
 
