@@ -1,7 +1,7 @@
-// @flow
-
-import React, {Component} from 'react';
+import React, {Component, ReactElement} from 'react';
+// @ts-ignore
 import autobind from 'class-autobind';
+// @ts-ignore
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import {
   View,
@@ -10,44 +10,55 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Animated,
+  ViewStyle,
+  StyleProp,
 } from 'react-native';
 
 type Cancellable = {
-  cancel: () => void,
+  cancel: () => void;
 };
 
+type Source = number | {uri: string; width?: number; height?: number};
+
 type Props = {
-  source: number | {uri: string, width?: number, height?: number},
-  style?: StyleType,
-  loadingComponent?: ReactNode,
-  onPress?: () => void,
-  thumbnail?: number | {uri: string, width?: number, height?: number},
-  loadingMethod?: 'spinner' | 'progressive',
-  errorComponent?: ReactNode,
+  source: number | Source;
+  style?: StyleProp<ViewStyle>;
+  loadingComponent?: ReactElement<any>;
+  onPress?: () => void;
+  thumbnail?: number | Source;
+  loadingMethod?: 'spinner' | 'progressive';
+  errorComponent?: ReactElement<any>;
 };
 
 type State = {
-  isLoading: boolean,
-  ratio: ?number,
-  error: ?string,
-  thumbnailOpacity: Animated.Value,
+  isLoading: boolean;
+  ratio: number;
+  error: string;
+  thumbnailOpacity: Animated.Value;
 };
 
 export default class FlexImage extends Component<Props, State> {
-  _pendingGetSize: ?Cancellable;
+  _pendingGetSize: Cancellable | null = null;
 
-  constructor(props: Props, ...args: Array<mixed>) {
-    super(props, ...args);
-    autobind(this);
+  state = {
+    isLoading: true,
+    ratio: -1,
+    error: '',
+    thumbnailOpacity: new Animated.Value(0),
+  };
 
-    let {source, thumbnail, loadingMethod} = props;
-    let ratio;
-    let error;
+  componentDidMount() {
+    let {source, thumbnail, loadingMethod} = this.props;
+    let ratio = -1;
+    let error = '';
     let isLoading = true;
 
     let src = thumbnail && loadingMethod === 'progressive' ? thumbnail : source;
     if (typeof src === 'number') {
-      let imageSource = resolveAssetSource(src);
+      let imageSource: {
+        width: number | null;
+        height: number | null;
+      } | null = resolveAssetSource(src);
       if (imageSource) {
         let {width, height} = imageSource;
         if (width && height) {
@@ -61,16 +72,15 @@ export default class FlexImage extends Component<Props, State> {
       this._pendingGetSize = getImageSize(
         src,
         this._onLoadSuccess,
-        this._onLoadFail,
+        this._onLoadFail
       );
     }
 
-    this.state = {
+    this.setState({
       ratio,
       isLoading,
       error,
-      thumbnailOpacity: new Animated.Value(0),
-    };
+    });
   }
 
   componentWillUnmount() {
@@ -111,7 +121,7 @@ export default class FlexImage extends Component<Props, State> {
       );
     }
 
-    let imageSource;
+    let imageSource: number | Source | null = null;
     if (typeof source === 'number') {
       imageSource = source;
     } else {
@@ -164,27 +174,27 @@ export default class FlexImage extends Component<Props, State> {
     }).start();
   };
 
-  _onLoadSuccess(width: number, height: number) {
+  _onLoadSuccess = (width: number, height: number) => {
     let ratio = width / height;
     this.setState({
       isLoading: false,
       ratio,
     });
-  }
+  };
 
-  _onLoadFail(error: Error) {
+  _onLoadFail = (error: Error) => {
     this.setState({
       isLoading: false,
       error: 'Error: ' + error.message,
     });
-  }
+  };
 }
 
 // A cancellable version of Image.getSize
 export function getImageSize(
   source: {uri: string},
   onSuccess: (width: number, height: number) => void,
-  onFail: (error: Error) => void,
+  onFail: (error: Error) => void
 ) {
   let isCancelled = false;
   Image.getSize(
@@ -198,7 +208,7 @@ export function getImageSize(
       if (!isCancelled) {
         onFail(error);
       }
-    },
+    }
   );
   return {
     cancel: () => {
