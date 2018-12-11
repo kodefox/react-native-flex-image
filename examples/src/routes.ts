@@ -1,5 +1,3 @@
-// @flow
-
 import {StackNavigator} from 'react-navigation';
 
 import Main from './Main';

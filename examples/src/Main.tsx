@@ -1,10 +1,8 @@
-// @flow
-
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 type Props = {
-  navigation: {navigate: (route: string) => void},
+  navigation: {navigate: (route: string) => void};
 };
 
 export default function Main(props: Props) {
