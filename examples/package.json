@@ -4,12 +4,12 @@
   "files": [
     "src/FlexImage.js"
   ],
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "expo start",
+    "eject": "expo eject",
+    "android": "expo --android",
+    "ios": "expo --ios",
     "lint": "tslint -p .",
     "test-src": "jest",
     "test": "yarn lint && yarn test-src"
@@ -31,7 +31,6 @@
     "babel-cli": "^6.24.1",
     "jest-expo": "^31.0.0",
     "prettier": "1.15.3",
-    "react-native-scripts": "1.11.1",
     "react-test-renderer": "16.5.0",
     "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
