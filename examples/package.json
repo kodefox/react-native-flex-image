@@ -29,6 +29,7 @@
     "@types/react-navigation": "^2.13.7",
     "@types/react-test-renderer": "^16.0.3",
     "babel-cli": "^6.24.1",
+    "babel-preset-expo": "^5.0.0",
     "jest-expo": "^31.0.0",
     "prettier": "1.15.3",
     "react-test-renderer": "16.5.0",
