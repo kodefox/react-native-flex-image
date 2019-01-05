@@ -2,14 +2,15 @@
   "name": "react-native-flex-image",
   "version": "1.2.0",
   "files": [
-    "flow-typed",
-    "src/FlexImage.tsx"
+    "lib/"
   ],
-  "main": "src/FlexImage.tsx",
+  "main": "lib/FlexImage.js",
+  "types": "lib/FlexImage.d.ts",
   "scripts": {
     "lint": "tslint -p .",
     "test-src": "node node_modules/jest/bin/jest.js",
-    "test": "yarn lint"
+    "test": "yarn lint",
+    "build": "tsc --declaration --outDir lib"
   },
   "dependencies": {
     "class-autobind": "^0.1.4",
