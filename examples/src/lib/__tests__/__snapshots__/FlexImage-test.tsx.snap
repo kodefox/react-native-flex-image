@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render thumbnail when loadingMethod is progressive 1`] = `
+<Animated.View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Array [
+        Object {
+          "aspectRatio": -1,
+        },
+        undefined,
+      ],
+      Object {
+        "opacity": Object {
+          "__getValue": [Function],
+          "interpolate": [Function],
+        },
+      },
+    ]
+  }
+>
+  <Animated.Image
+    onLoad={[Function]}
+    source={
+      Object {
+        "uri": "https://i.imgur.com/ngVArkT.jpg",
+      }
+    }
+    style={
+      Object {
+        "height": "100%",
+        "opacity": Object {
+          "__getValue": [Function],
+          "interpolate": [Function],
+        },
+        "width": "100%",
+        "zIndex": 1,
+      }
+    }
+    testID="progressiveThumbnail"
+  />
+  <Animated.Image
+    onLoad={[Function]}
+    source={
+      Object {
+        "uri": "https://i.imgur.com/v0Y4Jfu.jpg",
+      }
+    }
+    style={
+      Object {
+        "height": "100%",
+        "position": "absolute",
+        "width": "100%",
+      }
+    }
+  />
+</Animated.View>
+`;

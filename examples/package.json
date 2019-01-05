@@ -28,10 +28,10 @@
     "@types/react-native": "^0.57.15",
     "@types/react-navigation": "^2.13.7",
     "@types/react-test-renderer": "^16.0.3",
-    "babel-cli": "^6.24.1",
     "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^31.0.0",
+    "jest-expo": "31.0.0",
     "prettier": "1.15.3",
+    "react-native-testing-library": "^1.5.0",
     "react-test-renderer": "16.5.0",
     "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
@@ -44,9 +44,9 @@
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|/src/.*\\.(test|spec))\\.(jsx?|tsx?)$",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation)"
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)+(spec|test).ts?(x)"
     ],
     "moduleFileExtensions": [
       "ts",
@@ -58,7 +58,14 @@
       "ios.tsx",
       "android.ts",
       "android.tsx"
-    ]
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "jsx": "react"
+        }
+      }
+    }
   },
   "prettier": {
     "bracketSpacing": false,
