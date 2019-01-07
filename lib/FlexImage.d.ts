@@ -1,4 +1,4 @@
-import { Component, ReactElement } from 'react';
+import { Component, ReactNode } from 'react';
 import { Animated, ViewStyle, StyleProp } from 'react-native';
 declare type Cancellable = {
     cancel: () => void;
@@ -9,13 +9,13 @@ declare type Source = number | {
     height?: number;
 };
 declare type Props = {
-    source: number | Source;
+    source: Source;
     style?: StyleProp<ViewStyle>;
-    loadingComponent?: ReactElement<any>;
+    loadingComponent?: ReactNode;
     onPress?: () => void;
-    thumbnail?: number | Source;
+    thumbnail?: Source;
     loadingMethod?: 'spinner' | 'progressive';
-    errorComponent?: ReactElement<any>;
+    errorComponent?: ReactNode;
 };
 declare type State = {
     isLoading: boolean;

@@ -1,6 +1,4 @@
-import React, {Component, ReactElement} from 'react';
-// @ts-ignore
-import autobind from 'class-autobind';
+import React, {Component, ReactNode} from 'react';
 // @ts-ignore
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import {
@@ -21,13 +19,13 @@ type Cancellable = {
 type Source = number | {uri: string; width?: number; height?: number};
 
 type Props = {
-  source: number | Source;
+  source: Source;
   style?: StyleProp<ViewStyle>;
-  loadingComponent?: ReactElement<any>;
+  loadingComponent?: ReactNode;
   onPress?: () => void;
-  thumbnail?: number | Source;
+  thumbnail?: Source;
   loadingMethod?: 'spinner' | 'progressive';
-  errorComponent?: ReactElement<any>;
+  errorComponent?: ReactNode;
 };
 
 type State = {
@@ -72,7 +70,7 @@ export default class FlexImage extends Component<Props, State> {
       this._pendingGetSize = getImageSize(
         src,
         this._onLoadSuccess,
-        this._onLoadFail
+        this._onLoadFail,
       );
     }
 
@@ -121,7 +119,7 @@ export default class FlexImage extends Component<Props, State> {
       );
     }
 
-    let imageSource: number | Source | null = null;
+    let imageSource: Source | null = null;
     if (typeof source === 'number') {
       imageSource = source;
     } else {
@@ -194,7 +192,7 @@ export default class FlexImage extends Component<Props, State> {
 export function getImageSize(
   source: {uri: string},
   onSuccess: (width: number, height: number) => void,
-  onFail: (error: Error) => void
+  onFail: (error: Error) => void,
 ) {
   let isCancelled = false;
   Image.getSize(
@@ -208,7 +206,7 @@ export function getImageSize(
       if (!isCancelled) {
         onFail(error);
       }
-    }
+    },
   );
   return {
     cancel: () => {
