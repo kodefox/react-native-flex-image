@@ -1,28 +1,22 @@
-// @flow
-
 import React, {Component} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 import FlexImage from './lib/FlexImage';
 
 type State = {
-  leftClickCount: number,
-  rightClickCount: number,
+  leftClickCount: number;
+  rightClickCount: number;
 };
 
-export default class WithOnPressEvent extends Component<*, State> {
+export default class WithOnPressEvent extends Component<{}, State> {
   static navigationOptions = {
     title: 'With onPress Event',
   };
 
-  constructor() {
-    super(...arguments);
-
-    this.state = {
-      leftClickCount: 0,
-      rightClickCount: 0,
-    };
-  }
+  state = {
+    leftClickCount: 0,
+    rightClickCount: 0,
+  };
 
   render() {
     return (
